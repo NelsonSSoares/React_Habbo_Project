@@ -1,29 +1,21 @@
-import { useEffect, useState } from "react";
-import { api } from "./services/api";
-
+import { useEffect } from "react";
+import { useHabboByName } from "./hooks/useHabboByName";
 function App() {
-  const [user, setUser] = useState(null);
+  // ✅ direto no componente, sem useEffect, sem async
+  const { data: user, loading, error } = useHabboByName("amigo-punk");
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await api.get("/users?name=amigo-punk");
-        console.log(response.data);
-        
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
+    console.log(user);
+  }, [user]);
 
-    fetchUser();
-  }, []);
+  if (loading) return <p>Carregando...</p>;
+  if (error)   return <p>Erro: {error}</p>;
 
   return (
     <>
-
+      <p>{user?.name}</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
