@@ -1,4 +1,4 @@
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { useHabboByName } from "./hooks/useHabboByName";
 import { useHabboById } from "./hooks/useHabboById";
 function App() {
