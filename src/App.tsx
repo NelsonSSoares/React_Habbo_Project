@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useHabboByName } from "./hooks/useHabboByName";
-import { useHabboById } from "./hooks/useHabboById";
+import { useHabboFullProfile } from "./hooks/useHabboFullProfile";
+
 function App() {
   const { data: user, loading, error } = useHabboByName("amigo-punk");
-  const { data: user2 } = useHabboById(user?.uniqueId || "");
+  const { data: fullProfile } = useHabboFullProfile(user?.uniqueId || "");
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
-  useEffect(() => {
-  console.log("User 2:", user2);
-  }, [user2]);
+    console.log("User:", user);
+    console.log("Full Profile:", fullProfile);
+  }, [user, fullProfile]);
+
 
   if (loading) return <p>Carregando...</p>;
   if (error)   return <p>Erro: {error}</p>;
